@@ -139,6 +139,14 @@ Parameter | Type | Default | Description
 `$operator` | *string* | `null` | Logic operator
 `$chainType` | *string* | `'AND'` | Chain type: `AND` or `OR`
 
+##### `whereGroupOpen($chainType = 'AND')`
+
+Parameter | Type | Default | Description
+--- | --- | --- | ---
+`$chainType` | *string* | `'AND'` | Chain type: `AND` or `OR`
+
+##### `whereGroupClose()`
+
 ### Examples
 
 ```php
@@ -171,4 +179,15 @@ $statement->whereNotNull('l_name');
 
 // ... WHERE col_1 = ? AND col_2 = ? AND col_3 = ?
 $statement->whereMany(array('col_1' => 'val_1', 'col_2' => 'val_2', 'col_3' => 'val_3'), '=');
+
+// ... WHERE (usr = ? OR f_name = ?) AND (col3 = ? OR col4 = ?)
+$statement
+    ->whereGroupOpen()
+    ->where('usr', '=', 'Foo', '')
+    ->orWhere('f_name', '=', 'Bar')
+    ->whereGroupClose()
+    ->whereGroupOpen()
+    ->where('col3', '=', 'Foo', '')
+    ->orWhere('col4', '=', 'Bar')
+    ->whereGroupClose();
 ```
