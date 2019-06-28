@@ -23,6 +23,19 @@ class WhereClause extends ClauseContainer
     {
         $this->container[] = ' '.$chainType.' '.$column.' '.$operator.' ?';
     }
+    
+    /**
+     * @param string $chainType
+     */
+    public function whereGroupOpen($chainType = 'AND')
+    {
+        $this->container[] = ' '.$chainType.' (';
+    }
+    
+    public function whereGroupClose()
+    {
+        $this->container[] = ')';
+    }
 
     /**
      * @param $column

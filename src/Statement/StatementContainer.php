@@ -89,6 +89,25 @@ abstract class StatementContainer
 
         return $this;
     }
+    
+    /**
+     * @param string $chainType
+     * @return $this
+     */
+    public function whereGroupOpen($chainType = 'AND')
+    {
+        $this->whereClause->whereGroupOpen($chainType);
+        return $this;
+    }
+    
+    /**
+     * @return $this
+     */
+    public function whereGroupClose()
+    {
+        $this->whereClause->whereGroupClose();
+        return $this;
+    }
 
     /**
      * @param $column
