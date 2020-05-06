@@ -16,6 +16,9 @@ use FaaPz\PDO\Database;
  */
 class InsertStatement extends StatementContainer
 {
+    /** @var bool $ignore */
+    protected $ignore = false;
+
     /**
      * Constructor.
      *
@@ -32,6 +35,16 @@ class InsertStatement extends StatementContainer
         } else {
             $this->columns($columnsOrPairs);
         }
+    }
+
+    /**
+     * @return $this
+     */
+    public function ignore(): self
+    {
+        $this->ignore = true;
+
+        return $this;
     }
 
     /**
@@ -89,7 +102,11 @@ class InsertStatement extends StatementContainer
             trigger_error('Missing values for insertion', E_USER_ERROR);
         }
 
-        $sql = 'INSERT INTO '.$this->table;
+        $sql = 'INSERT';
+        if ($this->ignore) {
+            $sql .= ' IGNORE';
+        }
+        $sql .=' INTO '.$this->table;
         $sql .= ' '.$this->getColumns();
         $sql .= ' VALUES '.$this->getPlaceholders();
 
