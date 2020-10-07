@@ -241,6 +241,6 @@ class WhereClause extends ClauseContainer
             $args[] = $where;
         }
 
-        return ' WHERE '. preg_replace('/^(\sAND\s)/', '', implode('', $args));
+        return ' WHERE '. preg_replace('/^(\sAND\s|\sOR\s)/', '', implode('', $args));
     }
 }
