@@ -447,7 +447,7 @@ abstract class StatementContainer
         $stmt = $this->getStatement();
         $this->bindValues($stmt, $this->values);
         $stmt->execute();
-
+        $this->values = [];
         return $stmt;
     }
 
@@ -502,12 +502,17 @@ abstract class StatementContainer
 
     /**
      * @param array $values
+     * @param bool  $merge
      *
      * @return $this
      */
-    protected function setValues(array $values)
+    protected function setValues(array $values, bool $merge = true)
     {
-        $this->values = array_merge($this->values, $values);
+        if ($merge) {
+            $this->values = array_merge($this->values, $values);
+        } else {
+            $this->values = $values;
+        }
 
         return $this;
     }

@@ -73,12 +73,13 @@ class InsertStatement extends StatementContainer
 
     /**
      * @param array $values
+     * @param bool  $merge
      *
      * @return $this
      */
-    public function values(array $values)
+    public function values(array $values, bool $merge = true)
     {
-        $this->setValues($values);
+        $this->setValues($values, $merge);
 
         $this->setPlaceholders($values);
 
